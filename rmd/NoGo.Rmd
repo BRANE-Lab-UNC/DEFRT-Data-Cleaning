@@ -14,14 +14,14 @@ if(!require(tidyr)) { install.packages("tidyr", repos = "http://cran.us.r-projec
 ```{r results='hide'}
 original_colnames <- c(
   "subj",
+  "Session1_smoking_correct_responses",
+  "Session1_smoking_correct_commissions",
+  "Session1_smoking_errors_of_omission",
+  "Session1_smoking_mean_response_time",
   "Session1_neutral_correct_responses",
   "Session1_neutral_correct_commissions",
   "Session1_neutral_errors_of_omission",
-  "Session1_smoking_correct_responses",
-  "Session1_neutral_mean_response_time",
-  "Session1_smoking_correct_commissions",
-  "Session1_smoking_errors_of_omission",
-  "Session1_smoking_mean_response_time")
+  "Session1_neutral_mean_response_time")
 
 # Create a data frame with the original column names and one row of NA values
 summaryTotal <- data.frame(matrix(NA, nrow = 1, ncol = length(original_colnames)))
