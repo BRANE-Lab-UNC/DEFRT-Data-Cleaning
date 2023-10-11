@@ -4,7 +4,7 @@ date: "`r Sys.Date()`"
 output: github_document
 ---
 
-```{r}
+```{r results='hide'}
 #Installs packages if not previously installed
 if(!require(readr)) { install.packages("readr", repos = "http://cran.us.r-project.org"); library(readr) }
 if(!require(dplyr)) { install.packages("dplyr", repos = "http://cran.us.r-project.org"); library(dplyr) }
