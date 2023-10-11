@@ -1,6 +1,6 @@
 NoGo
 ================
-2023-10-09
+2023-10-11
 
 ``` r
 #Installs packages if not previously installed
@@ -184,33 +184,6 @@ merged_summary <- summaryTotal %>%
 merged_summary
 ```
 
-    ## # A tibble: 25 × 33
-    ##    subj  Session1_neutral_correc…¹ Session1_neutral_cor…² Session1_neutral_err…³
-    ##    <chr>                     <dbl>                  <dbl>                  <dbl>
-    ##  1 4                            31                      0                      0
-    ##  2 7                            64                     64                      1
-    ##  3 8                            10                      0                      0
-    ##  4 9                            62                     62                      3
-    ##  5 12                           33                      0                      0
-    ##  6 15                           65                     65                      0
-    ##  7 17                           26                      0                      0
-    ##  8 20                           65                     65                      0
-    ##  9 22                           30                      0                      0
-    ## 10 24                           28                      0                      0
-    ## # ℹ 15 more rows
-    ## # ℹ abbreviated names: ¹​Session1_neutral_correct_responses,
-    ## #   ²​Session1_neutral_correct_commissions, ³​Session1_neutral_errors_of_omission
-    ## # ℹ 29 more variables: Session1_smoking_correct_responses <dbl>,
-    ## #   Session1_neutral_mean_response_time <dbl>,
-    ## #   Session1_smoking_correct_commissions <dbl>,
-    ## #   Session1_smoking_errors_of_omission <dbl>, …
-
 ``` r
-write_csv(merged_summary, path = paste0("./data/summaryTotal.csv"))
+write_csv(merged_summary, file = paste0("./data/summaryTotal.csv"))
 ```
-
-    ## Warning: The `path` argument of `write_csv()` is deprecated as of readr 1.4.0.
-    ## ℹ Please use the `file` argument instead.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
