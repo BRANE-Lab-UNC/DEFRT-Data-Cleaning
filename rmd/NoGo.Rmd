@@ -9,6 +9,9 @@ output: github_document
 if(!require(readr)) { install.packages("readr", repos = "http://cran.us.r-project.org"); library(readr) }
 if(!require(dplyr)) { install.packages("dplyr", repos = "http://cran.us.r-project.org"); library(dplyr) }
 if(!require(tidyr)) { install.packages("tidyr", repos = "http://cran.us.r-project.org"); library(tidyr) }
+if(!require(knitr)) { install.packages("knitr", repos = "http://cran.us.r-project.org"); library(knitr) }
+if (!require(here)) {install.packages("here", repos = "http://cran.us.r-project.org"); library(here) }
+setwd(here())
 ```
 
 ```{r results='hide'}
@@ -165,4 +168,5 @@ merged_summary
 
 ```{r results='hide'}
 write_csv(merged_summary, file = paste0("./data/summaryTotal.csv"))
+purl("NoGo.rmd", documentation = 2)
 ```
