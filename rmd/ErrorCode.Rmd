@@ -1,7 +1,7 @@
 ---
-title: "Data Collapsing"
-output: html_document
+title: "ErrorCode"
 date: "`r Sys.Date()`"
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -17,10 +17,10 @@ library(dplyr)
 ```{r}
 #replace with your filename
 filename <- "defrtdata_original_RH"
-sav <- read_sav(paste0("./", filename, ".sav"))
+sav <- read_sav(paste0("./data/", filename, ".sav"))
 #getwd() # this is the folder it will save into unless you specify otherwise in the path below
 write_csv(x = sav, file = paste0("./", filename, ".csv"))
-data <- read_csv(paste0("./", filename, ".csv"), show_col_types = F)
+data <- read_csv(paste0("./data/", filename, ".csv"), show_col_types = F)
 
 merged_data <- data %>%
   group_by(record_id) %>%

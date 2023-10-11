@@ -1,14 +1,14 @@
 ---
 title: "Data Collapsing"
-output: html_document
 date: "`r Sys.Date()`"
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 #Install packages if not previously installed
-#install.packages(haven)
-#install.packages(readr)
-#install.packages(dplyr)
+#install.packages("haven")
+#install.packages("readr")
+#install.packages("dplyr")
 library(haven)
 library(readr)
 library(dplyr)
@@ -17,13 +17,15 @@ library(dplyr)
 ```{r}
 #replace with your filename
 filename <- "defrtdata_original_RH"
-sav <- read_sav(paste0("./", filename, ".sav"))
+sav <- read_sav(paste0("./data/", filename, ".sav"))
 #getwd() # this is the folder it will save into unless you specify otherwise in the path below
-write_csv(x = sav, path = paste0("./", filename, ".csv"))
-data <- read_csv(paste0("./", filename, ".csv"), show_col_types = F)
+write_csv(x = sav, file = paste0("./data/", filename, ".csv"))
+data <- read_csv(paste0("./data/", filename, ".csv"), show_col_types = F)
+
 merged_data <- data %>%
   group_by(record_id) %>%
-  summarize_all(list(first))
+  summarize_all(list(~ first(.[!is.na(.)])))
 #merged sav file
-write_sav(data = merged_data, path = paste0("./", filename, "_merged.sav"))
+write_sav(data = merged_data, path = paste0("./data/", filename, "_merged.sav"))
+write_csv(x = merged_data, file = paste0("./data/", filename, "_merged.csv"))
 ```
