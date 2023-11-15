@@ -27,7 +27,9 @@ original_colnames <- c(
   "Session1_neutral_errors_of_omission",
   "Session1_neutral_mean_response_time",
   "Session1_neutral_errors_of_commission",
-  "Session1_trials"
+  "Session1_trials",
+  "Session1_goTrials",
+  "Session1_nogoTrials"
   )
 
 # Create a data frame with the original column names and one row of NA values
@@ -74,7 +76,7 @@ for (i in data_list) {
     group_by(imType) %>%
     summarize(mean_response_time = mean(respTime))
   
-  #Number of errors of comission for neutral and smoking
+  #Number of errors of commission for neutral and smoking
   errors_of_commission <- countedData %>%
     group_by(imType) %>%
     summarize(errors_of_commission = sum(ifelse(accuracy == 0 & trialType == "nogo", count, 0)))
@@ -82,18 +84,27 @@ for (i in data_list) {
   #Total number of trials in the session
   trials <- sum(countedData$count)
   
-  #Creates data frame for subj, session, imType, correct_reponses, correct_comissions, errors_of_omission, mean_response_time
-  summarydata <- mutate(data[1:2,1], data[1:2,2], correct_responses, correct_commissions, errors_of_omission, mean_response_time, errors_of_commission, trials)
+  #Total number of go trials in the session
+  goTrials <- countedData %>%
+    summarize(goTrials = sum(ifelse(trialType == "go", count, 0)))
+  
+  #Total number of nogo trials in the session
+  nogoTrials <- countedData %>%
+    summarize(nogoTrials = sum(ifelse(trialType == "nogo", count, 0)))
+    
+  
+  #Creates data frame for subj, session, imType, correct_reponses, correct_comissions, errors_of_omission, mean_response_time, errors_of_commission, trials, goTrials, nogoTrials
+  summarydata <- mutate(data[1:2,1], data[1:2,2], correct_responses, correct_commissions, errors_of_omission, mean_response_time, errors_of_commission, trials, goTrials, nogoTrials)
   
   #Takes everything before trials and binds it to everything after session for the other imType
-  summarydata1 <- cbind(summarydata[1, 1:ncol(summarydata) - 1], summarydata[2, 3:ncol(summarydata)])
+  summarydata1 <- cbind(summarydata[1, 1:(ncol(summarydata) - 3)], summarydata[2, 3:ncol(summarydata)])
   
   #Renames columns based on their session and imType
-  colnames(summarydata1)[4:8] <- paste0("Session", summarydata[1,2], "_", summarydata1[1, 3], "_", colnames(summarydata1)[4:8])
-  colnames(summarydata1)[10:ncol(summarydata1) - 1] <- paste0("Session", summarydata[1,2], "_", summarydata1[1, 9], "_", colnames(summarydata1)[10:ncol(summarydata1) - 1])
+  colnames(summarydata1)[4:8] <- paste0("Session", summarydata1[1,2], "_", summarydata1[1, 3], "_", colnames(summarydata1)[4:8])
+  colnames(summarydata1)[10:(ncol(summarydata1) - 3)] <- paste0("Session", summarydata1[1,2], "_", summarydata1[1, 9], "_", colnames(summarydata1)[10:(ncol(summarydata1) - 3)])
   
   #Renames Trials column based solely on session
-  colnames(summarydata1)[ncol(summarydata1)] <- paste0("Session", summarydata[1,2], "_", colnames(summarydata1)[ncol(summarydata1)])
+  colnames(summarydata1)[15:ncol(summarydata1)] <- paste0("Session", summarydata[1,2], "_", colnames(summarydata1)[15:ncol(summarydata1)])
   
   summarydatasession <- summarydata1[c(1, 4:8, 10:ncol(summarydata1))]
   assign(paste0("summarydata", data[1, 1], ".", data[1, 2]), summarydata)
@@ -151,7 +162,7 @@ for (i in data_list) {
     group_by(imType) %>%
     summarize(mean_response_time = mean(respTime))
   
-  #Number of errors of comission for neutral and smoking
+  #Number of errors of commission for neutral and smoking
   errors_of_commission <- countedData %>%
     group_by(imType) %>%
     summarize(errors_of_commission = sum(ifelse(accuracy == 0 & trialType == "nogo", count, 0)))
@@ -159,18 +170,27 @@ for (i in data_list) {
   #Total number of trials in the session
   trials <- sum(countedData$count)
   
-  #Creates data frame for subj, session, imType, correct_reponses, correct_comissions, errors_of_omission, mean_response_time
-  summarydata <- mutate(data[1:2,1], data[1:2,2], correct_responses, correct_commissions, errors_of_omission, mean_response_time, errors_of_commission, trials)
+  #Total number of go trials in the session
+  goTrials <- countedData %>%
+    summarize(goTrials = sum(ifelse(trialType == "go", count, 0)))
+  
+  #Total number of nogo trials in the session
+  nogoTrials <- countedData %>%
+    summarize(nogoTrials = sum(ifelse(trialType == "nogo", count, 0)))
+    
+  
+  #Creates data frame for subj, session, imType, correct_reponses, correct_comissions, errors_of_omission, mean_response_time, errors_of_commission, trials, goTrials, nogoTrials
+  summarydata <- mutate(data[1:2,1], data[1:2,2], correct_responses, correct_commissions, errors_of_omission, mean_response_time, errors_of_commission, trials, goTrials, nogoTrials)
   
   #Takes everything before trials and binds it to everything after session for the other imType
-  summarydata1 <- cbind(summarydata[1, 1:ncol(summarydata) - 1], summarydata[2, 3:ncol(summarydata)])
+  summarydata1 <- cbind(summarydata[1, 1:(ncol(summarydata) - 3)], summarydata[2, 3:ncol(summarydata)])
   
   #Renames columns based on their session and imType
-  colnames(summarydata1)[4:8] <- paste0("Session", summarydata[1,2], "_", summarydata1[1, 3], "_", colnames(summarydata1)[4:8])
-  colnames(summarydata1)[10:ncol(summarydata1) - 1] <- paste0("Session", summarydata[1,2], "_", summarydata1[1, 9], "_", colnames(summarydata1)[10:ncol(summarydata1) - 1])
+  colnames(summarydata1)[4:8] <- paste0("Session", summarydata1[1,2], "_", summarydata1[1, 3], "_", colnames(summarydata1)[4:8])
+  colnames(summarydata1)[10:(ncol(summarydata1) - 3)] <- paste0("Session", summarydata1[1,2], "_", summarydata1[1, 9], "_", colnames(summarydata1)[10:(ncol(summarydata1) - 3)])
   
   #Renames Trials column based solely on session
-  colnames(summarydata1)[ncol(summarydata1)] <- paste0("Session", summarydata[1,2], "_", colnames(summarydata1)[ncol(summarydata1)])
+  colnames(summarydata1)[15:ncol(summarydata1)] <- paste0("Session", summarydata[1,2], "_", colnames(summarydata1)[15:ncol(summarydata1)])
   
   summarydatasession <- summarydata1[c(1, 4:8, 10:ncol(summarydata1))]
   assign(paste0("summarydata", data[1, 1], ".", data[1, 2]), summarydata)
@@ -202,7 +222,6 @@ merged_summary <- summaryTotal %>%
 merged_summary
 ```
 
-```{r results='hide' eval = F}
+```{r results='hide', eval = F}
 write_csv(merged_summary, file = paste0("./data/summaryTotal.csv"))
-purl("NoGo.rmd", documentation = 2)
 ```
