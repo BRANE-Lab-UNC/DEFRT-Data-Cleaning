@@ -5,13 +5,10 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-#Install packages if not previously installed
-#install.packages("haven")
-#install.packages("readr")
-#install.packages("dplyr")
-library(haven)
-library(readr)
-library(dplyr)
+#Installs packages if not previously installed, press run twice if first time installing packages
+if(!require(haven)) {install.packages("haven", repos = "http://cran.us.r-project.org"); library(haven)}
+if(!require(readr)) {install.packages("readr", repos = "http://cran.us.r-project.org"); library(readr)}
+if(!require(dplyr)) {install.packages("dplyr", repos = "http://cran.us.r-project.org"); library(dplyr)}
 ```
 
 ```{r}
@@ -36,20 +33,6 @@ date_indices <- grep("date", names(merged_data))
 #View date variables and their indices
 #date_variables
 #date_indices
-# if (!is.na(merged_data[,date_indices[1]])) {
-#   for (i in date_indices[1]:(date_indices[2] - 1)) {
-#     for j in (1:nrow(merged_data)) {
-#       if is.na(merged_data[j,i]) {
-#         merged_data[j,i] <- -777
-#       }
-#     }
-#   }
-# } else if {
-#   for i in (date_indices[1]:(date_indices[2] - 1)) {
-#     for j in (1:nrow(merged_data)) {
-#       if is.na(merged_data[j,i]) {
-#         merged_data[j,i] <- -888
-# }}}}
 
 #for session_date_virtual
 for (i in seq(date_indices[1] + 1, date_indices[3] - 1)) {
