@@ -12,10 +12,10 @@ if(!require(dplyr)) {install.packages("dplyr", repos = "http://cran.us.r-project
 ```
 
 ```{r}
-#replace with your filename
-filename <- "defrtdata_original_RH"
+# Replace with your filename
+filename <- ""
+
 sav <- read_sav(paste0("./data/", filename, ".sav"))
-#getwd() # this is the folder it will save into unless you specify otherwise in the path below
 write_csv(x = sav, file = paste0("./", filename, ".csv"))
 data <- read_csv(paste0("./data/", filename, ".csv"), show_col_types = F)
 
@@ -35,7 +35,7 @@ date_indices <- grep("date", names(merged_data))
 #date_indices
 
 #for session_date_virtual
-for (i in seq(date_indices[1] + 1, date_indices[3] - 1)) {
+for (i in seq(date_indices[1] + 1, date_indices[2] - 1)) {
   # Check if the column is numeric or character
   is_numeric <- is.numeric(merged_data[[i]])
   is_character <- is.character(merged_data[[i]])
@@ -72,7 +72,7 @@ for (i in seq(date_indices[1] + 1, date_indices[3] - 1)) {
 }
 
 #Do the same for eeg_date
-for (i in seq(date_indices[3] + 1, date_indices[4] - 1)) {
+for (i in seq(date_indices[2] + 1, date_indices[3] - 1)) {
   # Check if the column is numeric or character
   is_numeric <- is.numeric(merged_data[[i]])
   is_character <- is.character(merged_data[[i]])
@@ -109,7 +109,7 @@ for (i in seq(date_indices[3] + 1, date_indices[4] - 1)) {
 }
 
 #Do the same for smk_date
-for (i in seq(date_indices[4] + 1, date_indices[5] - 1)) {
+for (i in seq(date_indices[3] + 1, date_indices[4] - 1)) {
   # Check if the column is numeric or character
   is_numeric <- is.numeric(merged_data[[i]])
   is_character <- is.character(merged_data[[i]])
@@ -146,7 +146,7 @@ for (i in seq(date_indices[4] + 1, date_indices[5] - 1)) {
 }
 
 #Do the same for session_date
-for (i in seq(date_indices[5] + 1, ncol(merged_data))) {
+for (i in seq(date_indices[4] + 1, ncol(merged_data))) {
   # Check if the column is numeric or character
   is_numeric <- is.numeric(merged_data[[i]])
   is_character <- is.character(merged_data[[i]])
